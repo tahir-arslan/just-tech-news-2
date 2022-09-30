@@ -110,3 +110,24 @@ question direct from lesson:
     The last helper, format_plural, takes two arguments, so how would we write it?
         We're not using () to pass arguments, so we can separate arguments with spaces.
 
+14.5
+earlier, created a condition in main layout to hide dashboard link if user isn't logged in. but at the moment, user (not logged in) can just type `url/dashboard` and go directly there without logging in.
+    in our case, we covered this by saying `user_id: req.session.user_id` => status code 500. but we will reroute this so user does not see a broken page, and instead are taken to `/login` route when trying to access a route meant for authenticated users
+
+for this, instead of writing `if` statements in all of our other routes, we will implement custom middleware using `Express.js` to do thsi for us. remember, middleware is just a function that executes before function that sends response back and can execute multiple middleware functions. ex:
+            app.get('/', 
+                (req, res, next) => {
+                    console.log('first middleware');
+                    next();
+                }, 
+                (req, res, next) => {
+                    console.log('second middleware');
+                    next();
+                }, 
+                (req, res) => {
+                    console.log('final function call');
+                    res.send('ok');
+                }
+            );
+
+To `authguard` a route means to restrict it to authenticated users only
