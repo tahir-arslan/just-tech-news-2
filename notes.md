@@ -60,3 +60,6 @@ install session libraries with
         by `express-session` into our database
 
 for logging out, need to delete/destroy session variables and reset cookie
+
+14.3
+- can now log in users and allow them to comment/upvote posts
