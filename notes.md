@@ -70,3 +70,43 @@ creating upvote functionality, using async function with `fetch( )` request that
 initially we created the `fetch( )` request only using `post_id`. if testing functionality now, will get an error since it requires `user_id` to be provided, but can test to see if it worked by inspecting headers panel
 
 want to hide upvote and comment features for users who aren't logged in. so will use handlebars.js to create a toggle view functionality using `{{ #if }}` which acts a lot like JS `if`'s and only checks truthy values
+
+14.4
+`Partial` is a templating technique (not unique to handlebars.js), that help minimize repeated code across templates (just like how templates reduce repeated code across pages)
+    can extract smaller components from template to reuse in other templates
+        create `views/partials/`
+
+to use partial, need a `>` followed by name of partial file and object being passed (ex `{{> post-info post }}`)
+    when passing object into partial, we don't pass object as is but rather pass in all of the properties of that object
+This works in a similar way to destructuring the properties of an object in a function’s parameters. Consider the following code:
+        function doSomething({name, description}) {
+            console.log(post); // prints "undefined"
+        }
+        const post = {name: 'test post', description: 'a test post'};
+        doSomething(post);
+This code would give us an error because `doSomething( )` has no knowledge of the keyword `post`.
+    to fix this, need to update all variables to not use `object.<property>` and instead just use property names.
+
+when dealing with `post` in this lesson, it is an `array` so passing it in does not destructure it like it does passing in an `object`. So we can access it's data with the `this` keyword
+    this is because arrays don't have named properties like objects
+
+helper function (ex. `#each`) allow us to add small bits of logic/data manipulation to template itself. and since helpers are functions, we can unit test them.
+    can also create our own custom helpers (see `utils/helpers.js` for this lesson's custom helper) and then use custom defined helper as before (ex. `{{ #customHelperFunction }}`)
+        14.4.5 video example
+            const exphbs = require('./express-handlebars');
+            const helpers = require('./utils/helpers.js');
+
+            // pass through `helpers` using create method
+            const hbs = exphbs.create({ helpers });
+
+            // call `.engine` method to prime custom helpers to be used 
+            // in view engine
+            app.engine("handlebars", hbs.engine);
+        
+in partials:
+    `{{format_date created_at}}` = saying `format_dates(created_at)`
+
+question direct from lesson:
+    The last helper, format_plural, takes two arguments, so how would we write it?
+        We're not using () to pass arguments, so we can separate arguments with spaces.
+
