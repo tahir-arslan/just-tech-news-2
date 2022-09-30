@@ -63,3 +63,10 @@ for logging out, need to delete/destroy session variables and reset cookie
 
 14.3
 - can now log in users and allow them to comment/upvote posts
+
+creating upvote functionality, using async function with `fetch( )` request that needs two things for PUT: `post_id` and `user_id`
+    `user_id` supplied from back end, can use `post_id` from query `http://localhost:3001/post/1` by splitting url based on `/` and taking last item in split array
+
+initially we created the `fetch( )` request only using `post_id`. if testing functionality now, will get an error since it requires `user_id` to be provided, but can test to see if it worked by inspecting headers panel
+
+want to hide upvote and comment features for users who aren't logged in. so will use handlebars.js to create a toggle view functionality using `{{ #if }}` which acts a lot like JS `if`'s and only checks truthy values
