@@ -38,3 +38,25 @@ handlebars.js has builtin helpers that allow you to perform minimal logic like l
 
 declare variable name in `{{ }}` expression as placeholder
 ex: `{{#each posts as |post| }}`
+
+14.2
+once finished with 14.1, page only works with pre-seeded data. what if users log in and create their own posts?
+
+don't forget to add routes for handlebars to load
+
+`async/await` allows promises to be more readable (vs. `.then( )` and `.catch(  )`)
+
+when using `await`, can assign result of promise to var ex:
+`const response = await fetch( );`
+
+sessions allow Express.js server to keep track of which user is making a request, and store useful data about them in memory. this will help keep track of if someone is still logged in as they route to different pages of the app.
+    in case session gets terminated, can store information about the session via HTML cookies aka cookies
+    however, third parties can access cookies therefore never store sensitive information in them.
+
+install session libraries with 
+`npm i express-session connect-session-sequelize`
+    `express-session` allows us to connect to backend
+    `connect-session-sequelize` automatically stores sessions created 
+        by `express-session` into our database
+
+for logging out, need to delete/destroy session variables and reset cookie

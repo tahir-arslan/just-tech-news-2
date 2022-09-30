@@ -2,7 +2,18 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
+// doesnt need any variables so don't need to pass a second arguement to `render( )`
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
+});
+
 router.get('/', (req, res) => {
+    console.log(req.session);
     Post.findAll({
       attributes: [
         'id',
